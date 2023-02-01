@@ -1,7 +1,13 @@
-# 1.8.9-mcp
-Optifine fork added, nothing else now.
-Also this is open source.
-# how to use
-just use it?
-https://www.youtube.com/watch?v=gNBFMTE91hU&list=PLxbv-Ej1VQMQS9M2qnmEQtp-qL3xcA4ua
-follow this guide, it works i guess
+### SpaceClient: RE
+SpaceClient was a project I worked on about a year ago, and I have decided to revive it here.
+
+# Functions
+🗹 Init Code
+☐ Test Game
+☐ Main Menu Revamp
+☐ Multithread
+🗹 Optifine
+☐ More ideas soon!
+
+# Installation
+You have to compile it yourself until the first version of SpaceClient has been released.

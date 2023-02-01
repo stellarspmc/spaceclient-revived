@@ -15,3 +15,6 @@
 18:24:47 - ==================
 18:24:47 - 
 18:24:47 - Initial client recompile failed, correct source then run updatemd5
+22:34:32 - "scalac" is not found on the PATH.  Scala files will not be recompiled
+22:34:45 - "scalac" is not found on the PATH.  Scala files will not be recompiled
+22:34:45 - !! Can not find client bins !!
