@@ -3,10 +3,12 @@ SpaceClient was a project I worked on about a year ago, and I have decided to re
 
 # Functions
 🗹 Init Code
-☐ Test Game
+🗹 Test Game
 ☐ Main Menu Revamp
 ☐ Multithread
-🗹 Optifine
+☐ Optifine
+☐ Account Switcher
+☐ Disable Useless Settings
 ☐ More ideas soon!
 
 # Installation
