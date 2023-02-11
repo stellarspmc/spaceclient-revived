@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.stream.GuiTwitchUserMode;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -450,19 +449,6 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
                 {
                     this.sendChatMessage(clickevent.getValue(), false);
                 }
-                else if (clickevent.getAction() == ClickEvent.Action.TWITCH_USER_INFO)
-                {
-                    ChatUserInfo chatuserinfo = this.mc.getTwitchStream().func_152926_a(clickevent.getValue());
-
-                    if (chatuserinfo != null)
-                    {
-                        this.mc.displayGuiScreen(new GuiTwitchUserMode(this.mc.getTwitchStream(), chatuserinfo));
-                    }
-                    else
-                    {
-                        LOGGER.error("Tried to handle twitch user but couldn\'t find them!");
-                    }
-                }
                 else
                 {
                     LOGGER.error("Don\'t know how to handle " + clickevent);
@@ -556,16 +542,10 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
         this.initGui();
     }
 
-    /**
-     * Set the gui to the specified width and height
-     *  
-     * @param w The width of the screen
-     * @param h The height of the screen
-     */
-    public void setGuiSize(int w, int h)
+    public void a(int p_a_1_, int p_a_2_)
     {
-        this.width = w;
-        this.height = h;
+        this.width = p_a_1_;
+        this.height = p_a_2_;
     }
 
     /**
@@ -685,20 +665,18 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
     /**
      * Draws the background (i is always 0 as of 1.2.2)
      */
-    public void drawBackground(int tint)
-    {
+    public void drawBackground(int tint) {
         GlStateManager.disableLighting();
         GlStateManager.disableFog();
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         this.mc.getTextureManager().bindTexture(optionsBackground);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        float f = 32.0F;
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, (double)this.height, 0.0D).tex(0.0D, (double)((float)this.height / 32.0F + (float)tint)).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos((double)this.width, (double)this.height, 0.0D).tex((double)((float)this.width / 32.0F), (double)((float)this.height / 32.0F + (float)tint)).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos((double)this.width, 0.0D, 0.0D).tex((double)((float)this.width / 32.0F), (double)tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, (double)tint).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(0.0D, this.height, 0.0D).tex(0.0D, (float)this.height / 32.0F + (float)tint).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(this.width, this.height, 0.0D).tex((float)this.width / 32.0F, (float)this.height / 32.0F + (float)tint).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(this.width, 0.0D, 0.0D).tex((float)this.width / 32.0F, tint).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, tint).color(64, 64, 64, 255).endVertex();
         tessellator.draw();
     }
 

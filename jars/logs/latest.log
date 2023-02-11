@@ -1,14 +1,12 @@
-[23:13:35] [Client thread/INFO]: Setting user: Player953
-[23:13:35] [Client thread/INFO]: (Session ID is token:0:Player953)
-[23:13:36] [Client thread/INFO]: LWJGL Version: 2.9.2
-[23:13:36] [Client thread/INFO]: Reloading ResourceManager: Default
-[23:13:36] [Client thread/ERROR]: Couldn't initialize twitch stream
-[23:13:36] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[23:13:37] [Thread-6/INFO]: Initializing LWJGL OpenAL
-[23:13:37] [Thread-6/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[23:13:37] [Thread-6/INFO]: OpenAL initialized.
-[23:13:37] [Sound Library Loader/INFO]: Sound engine started
-[23:13:38] [Client thread/INFO]: Created: 512x512 textures-atlas
-[23:13:41] [Client thread/INFO]: Stopping!
-[23:13:41] [Client thread/INFO]: SoundSystem shutting down...
-[23:13:42] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[00:04:44] [Client thread/INFO]: Setting user: Player63
+[00:04:44] [Client thread/INFO]: (Session ID is token:0:Player63)
+[00:04:45] [Client thread/INFO]: Reloading ResourceManager: Default
+[00:04:45] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[00:04:45] [Thread-6/INFO]: Initializing LWJGL OpenAL
+[00:04:45] [Thread-6/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[00:04:45] [Thread-6/INFO]: OpenAL initialized.
+[00:04:45] [Sound Library Loader/INFO]: Sound engine started
+[00:04:46] [Client thread/INFO]: Created: 1024x512 textures-atlas
+[00:04:58] [Client thread/INFO]: Stopping!
+[00:04:58] [Client thread/INFO]: SoundSystem shutting down...
+[00:04:58] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com

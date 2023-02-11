@@ -5,11 +5,8 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundCategory;
 import net.minecraft.client.audio.SoundEventAccessorComposite;
 import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.gui.stream.GuiStreamOptions;
-import net.minecraft.client.gui.stream.GuiStreamUnavailable;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.client.stream.IStream;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
@@ -78,7 +75,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback
         }
         else
         {
-            GuiOptionButton guioptionbutton1 = new GuiOptionButton(GameSettings.Options.REALMS_NOTIFICATIONS.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), GameSettings.Options.REALMS_NOTIFICATIONS, this.game_settings_1.getKeyBinding(GameSettings.Options.REALMS_NOTIFICATIONS));
+            GuiOptionButton guioptionbutton1 = new GuiOptionButton(GameSettings.Options.enumFloat.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), GameSettings.Options.enumFloat, this.game_settings_1.getKeyBinding(GameSettings.Options.enumFloat));
             this.buttonList.add(guioptionbutton1);
         }
 
@@ -210,21 +207,6 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback
             {
                 this.mc.gameSettings.saveOptions();
                 this.mc.displayGuiScreen(new GuiScreenOptionsSounds(this, this.game_settings_1));
-            }
-
-            if (button.id == 107)
-            {
-                this.mc.gameSettings.saveOptions();
-                IStream istream = this.mc.getTwitchStream();
-
-                if (istream.func_152936_l() && istream.func_152928_D())
-                {
-                    this.mc.displayGuiScreen(new GuiStreamOptions(this, this.game_settings_1));
-                }
-                else
-                {
-                    GuiStreamUnavailable.func_152321_a(this);
-                }
             }
         }
     }

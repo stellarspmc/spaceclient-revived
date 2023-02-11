@@ -455,7 +455,7 @@ public class PlayerSelector
         int k = parseIntWithDefault(params, "dz", 0);
         int l = parseIntWithDefault(params, "r", -1);
         Predicate<Entity> predicate = Predicates.and(inputList);
-        Predicate<Entity> predicate1 = Predicates.<Entity>and(EntitySelectors.selectAnything, predicate);
+        Predicate<Entity> predicate1 = Predicates.<Entity> and (EntitySelectors.selectAnything, predicate);
 
         if (position != null)
         {
@@ -504,7 +504,7 @@ public class PlayerSelector
                             return p_apply_1_.posX >= axisalignedbb.minX && p_apply_1_.posY >= axisalignedbb.minY && p_apply_1_.posZ >= axisalignedbb.minZ ? p_apply_1_.posX < axisalignedbb.maxX && p_apply_1_.posY < axisalignedbb.maxY && p_apply_1_.posZ < axisalignedbb.maxZ : false;
                         }
                     };
-                    list.addAll(worldIn.<T>getPlayers(entityClass, Predicates.<T>and(predicate1, predicate2)));
+                    list.addAll(worldIn.<T>getPlayers(entityClass, Predicates.<T> and (predicate1, predicate2)));
                 }
                 else
                 {

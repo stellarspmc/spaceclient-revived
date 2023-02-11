@@ -43,9 +43,6 @@ import net.minecraft.client.player.inventory.ContainerLocalMenu;
 import net.minecraft.client.player.inventory.LocalBlockIntercommunication;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.client.stream.MetadataAchievement;
-import net.minecraft.client.stream.MetadataCombat;
-import net.minecraft.client.stream.MetadataPlayerDeath;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.DataWatcher;
 import net.minecraft.entity.Entity;
@@ -279,7 +276,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         this.gameController.playerController = new PlayerControllerMP(this.gameController, this);
         this.clientWorldController = new WorldClient(this, new WorldSettings(0L, packetIn.getGameType(), false, packetIn.isHardcoreMode(), packetIn.getWorldType()), packetIn.getDimension(), packetIn.getDifficulty(), this.gameController.mcProfiler);
-        this.gameController.gameSettings.difficulty = packetIn.getDifficulty();
+        this.gameController.gameSettings.hideGUI = packetIn.getDifficulty();
         this.gameController.loadWorld(this.clientWorldController);
         this.gameController.thePlayer.dimension = packetIn.getDimension();
         this.gameController.displayGuiScreen(new GuiDownloadTerrain(this));
@@ -999,7 +996,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             if (flag)
             {
                 GameSettings gamesettings = this.gameController.gameSettings;
-                this.gameController.ingameGUI.setRecordPlaying(I18n.format("mount.onboard", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindSneak.getKeyCode())}), false);
+                this.gameController.ingameGUI.setRecordPlaying(I18n.format("mount.onboard", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindSprint.getKeyCode())}), false);
             }
         }
         else if (packetIn.getLeash() == 1 && entity instanceof EntityLiving)
@@ -1396,15 +1393,15 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             }
             else if (f == 101.0F)
             {
-                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.movement", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindForward.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindLeft.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindBack.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindRight.getKeyCode())}));
+                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.movement", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindLeft.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindBack.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindRight.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindJump.getKeyCode())}));
             }
             else if (f == 102.0F)
             {
-                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.jump", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindJump.getKeyCode())}));
+                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.jump", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindSneak.getKeyCode())}));
             }
             else if (f == 103.0F)
             {
-                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.inventory", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindInventory.getKeyCode())}));
+                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.inventory", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindUseItem.getKeyCode())}));
             }
         }
         else if (i == 6)
@@ -1471,7 +1468,6 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
                 {
                     Achievement achievement = (Achievement)statbase;
                     this.gameController.guiAchievement.displayAchievement(achievement);
-                    this.gameController.getTwitchStream().func_152911_a(new MetadataAchievement(achievement), 0L);
 
                     if (statbase == AchievementList.openInventory)
                     {
@@ -1517,24 +1513,6 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         Entity entity = this.clientWorldController.getEntityByID(packetIn.field_179775_c);
         EntityLivingBase entitylivingbase = entity instanceof EntityLivingBase ? (EntityLivingBase)entity : null;
-
-        if (packetIn.eventType == S42PacketCombatEvent.Event.END_COMBAT)
-        {
-            long i = (long)(1000 * packetIn.field_179772_d / 20);
-            MetadataCombat metadatacombat = new MetadataCombat(this.gameController.thePlayer, entitylivingbase);
-            this.gameController.getTwitchStream().func_176026_a(metadatacombat, 0L - i, 0L);
-        }
-        else if (packetIn.eventType == S42PacketCombatEvent.Event.ENTITY_DIED)
-        {
-            Entity entity1 = this.clientWorldController.getEntityByID(packetIn.field_179774_b);
-
-            if (entity1 instanceof EntityPlayer)
-            {
-                MetadataPlayerDeath metadataplayerdeath = new MetadataPlayerDeath((EntityPlayer)entity1, entitylivingbase);
-                metadataplayerdeath.func_152807_a(packetIn.deathMessage);
-                this.gameController.getTwitchStream().func_152911_a(metadataplayerdeath, 0L);
-            }
-        }
     }
 
     public void handleServerDifficulty(S41PacketServerDifficulty packetIn)
