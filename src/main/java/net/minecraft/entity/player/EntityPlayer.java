@@ -641,7 +641,7 @@ public abstract class EntityPlayer extends EntityLivingBase implements PlayerSet
     /**
      * Args: itemstack, flag
      */
-    public EntityItem dropPlayerItemWithRandomChoice(ItemStack itemStackIn, boolean unused) {
+    public EntityItem dropPlayerItemWithRandomChoice(ItemStack itemStackIn) {
         return this.dropItem(itemStackIn, false, false);
     }
 

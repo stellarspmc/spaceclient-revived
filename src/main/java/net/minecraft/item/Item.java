@@ -27,7 +27,7 @@ import java.util.Random;
 import java.util.UUID;
 
 public class Item {
-    public static final RegistryNamespaced<ResourceLocation, Item> itemRegistry = new RegistryNamespaced();
+    public static final RegistryNamespaced<ResourceLocation, Item> itemRegistry = new RegistryNamespaced<>();
     protected static final UUID itemModifierUUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
     private static final Map<Block, Item> BLOCK_TO_ITEM = Maps.newHashMap();
     /**
@@ -499,6 +499,8 @@ public class Item {
         registerItem(2265, "record_ward", (new ItemRecord("ward")).setUnlocalizedName("record"));
         registerItem(2266, "record_11", (new ItemRecord("11")).setUnlocalizedName("record"));
         registerItem(2267, "record_wait", (new ItemRecord("wait")).setUnlocalizedName("record"));
+        registerItem(500, "elytra", (new ItemElytra()).setUnlocalizedName("elytra"));
+
     }
 
     /**
@@ -527,8 +529,7 @@ public class Item {
     /**
      * Called when an ItemStack with NBT data is read to potentially that ItemStack's NBT data
      */
-    public boolean updateItemStackNBT(NBTTagCompound nbt) {
-        return false;
+    public void updateItemStackNBT(NBTTagCompound nbt) {
     }
 
     public Item setMaxStackSize(int maxStackSize) {

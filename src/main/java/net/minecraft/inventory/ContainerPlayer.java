@@ -26,11 +26,9 @@ public class ContainerPlayer extends Container {
         this.thePlayer = player;
         this.addSlotToContainer(new SlotCrafting(playerInventory.player, this.craftMatrix, this.craftResult, 0, 144, 36));
 
-        for (int i = 0; i < 2; ++i) {
-            for (int j = 0; j < 2; ++j) {
+        for (int i = 0; i < 2; ++i)
+            for (int j = 0; j < 2; ++j)
                 this.addSlotToContainer(new Slot(this.craftMatrix, j + i * 2, 88 + j * 18, 26 + i * 18));
-            }
-        }
 
         for (int k = 0; k < 4; ++k) {
             final int k_f = k;
@@ -49,15 +47,11 @@ public class ContainerPlayer extends Container {
             });
         }
 
-        for (int l = 0; l < 3; ++l) {
-            for (int j1 = 0; j1 < 9; ++j1) {
+        for (int l = 0; l < 3; ++l)
+            for (int j1 = 0; j1 < 9; ++j1)
                 this.addSlotToContainer(new Slot(playerInventory, j1 + (l + 1) * 9, 8 + j1 * 18, 84 + l * 18));
-            }
-        }
 
-        for (int i1 = 0; i1 < 9; ++i1) {
-            this.addSlotToContainer(new Slot(playerInventory, i1, 8 + i1 * 18, 142));
-        }
+        for (int i1 = 0; i1 < 9; ++i1) this.addSlotToContainer(new Slot(playerInventory, i1, 8 + i1 * 18, 142));
 
         this.onCraftMatrixChanged(this.craftMatrix);
     }
@@ -78,9 +72,7 @@ public class ContainerPlayer extends Container {
         for (int i = 0; i < 4; ++i) {
             ItemStack itemstack = this.craftMatrix.removeStackFromSlot(i);
 
-            if (itemstack != null) {
-                playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
-            }
+            if (itemstack != null) playerIn.dropPlayerItemWithRandomChoice(itemstack);
         }
 
         this.craftResult.setInventorySlotContents(0, null);
@@ -102,46 +94,26 @@ public class ContainerPlayer extends Container {
             itemstack = itemstack1.copy();
 
             if (index == 0) {
-                if (!this.mergeItemStack(itemstack1, 9, 45, true)) {
-                    return null;
-                }
+                if (!this.mergeItemStack(itemstack1, 9, 45, true)) return null;
 
                 slot.onSlotChange(itemstack1, itemstack);
-            } else if (index >= 1 && index < 5) {
-                if (!this.mergeItemStack(itemstack1, 9, 45, false)) {
-                    return null;
-                }
-            } else if (index >= 5 && index < 9) {
-                if (!this.mergeItemStack(itemstack1, 9, 45, false)) {
-                    return null;
-                }
+            } else if (index < 5) {
+                if (!this.mergeItemStack(itemstack1, 9, 45, false)) return null;
+            } else if (index < 9) {
+                if (!this.mergeItemStack(itemstack1, 9, 45, false)) return null;
             } else if (itemstack.getItem() instanceof ItemArmor && !this.inventorySlots.get(5 + ((ItemArmor) itemstack.getItem()).armorType).getHasStack()) {
                 int i = 5 + ((ItemArmor) itemstack.getItem()).armorType;
+                if (!this.mergeItemStack(itemstack1, i, i + 1, false)) return null;
+            } else if (index < 36) {
+                if (!this.mergeItemStack(itemstack1, 36, 45, false)) return null;
+            } else if (index < 45) {
+                if (!this.mergeItemStack(itemstack1, 9, 36, false)) return null;
+            } else if (!this.mergeItemStack(itemstack1, 9, 45, false)) return null;
 
-                if (!this.mergeItemStack(itemstack1, i, i + 1, false)) {
-                    return null;
-                }
-            } else if (index >= 9 && index < 36) {
-                if (!this.mergeItemStack(itemstack1, 36, 45, false)) {
-                    return null;
-                }
-            } else if (index >= 36 && index < 45) {
-                if (!this.mergeItemStack(itemstack1, 9, 36, false)) {
-                    return null;
-                }
-            } else if (!this.mergeItemStack(itemstack1, 9, 45, false)) {
-                return null;
-            }
+            if (itemstack1.stackSize == 0) slot.putStack(null);
+            else slot.onSlotChanged();
 
-            if (itemstack1.stackSize == 0) {
-                slot.putStack(null);
-            } else {
-                slot.onSlotChanged();
-            }
-
-            if (itemstack1.stackSize == itemstack.stackSize) {
-                return null;
-            }
+            if (itemstack1.stackSize == itemstack.stackSize) return null;
 
             slot.onPickupFromSlot(playerIn, itemstack1);
         }

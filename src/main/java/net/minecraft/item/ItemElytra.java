@@ -1,19 +1,14 @@
 package net.minecraft.item;
 
-import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
-public class ItemElytra extends Item {
+public class ItemElytra extends ItemArmor {
     public ItemElytra() {
+        super(ArmorMaterial.LEATHER, 0, 1);
         this.maxStackSize = 1;
         this.setMaxDamage(432);
         this.setCreativeTab(CreativeTabs.tabTransport);
@@ -31,15 +26,14 @@ public class ItemElytra extends Item {
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        EntityEquipmentSlot entityequipmentslot = EntityLiving.getArmorPosition(itemStackIn);
-        ItemStack itemstack1 = playerIn.getItemStackFromSlot(entityequipmentslot);
+        int i = EntityLiving.getArmorPosition(itemStackIn) - 1;
+        ItemStack itemstack = playerIn.getCurrentArmor(i);
 
-        if (itemstack1.isEmpty()) {
-            playerIn.setItemStackToSlot(entityequipmentslot, itemstack.copy());
-            itemstack.setCount(0);
-            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-        } else {
-            return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+        if (itemstack == null) {
+            playerIn.setCurrentItemOrArmor(i, itemStackIn.copy());
+            itemStackIn.stackSize = 0;
         }
+
+        return itemStackIn;
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.util.HttpUtil;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.*;
 import java.util.Map.Entry;
@@ -36,7 +37,7 @@ public class PlayerUsageSnooper {
 
     public PlayerUsageSnooper(String side, IPlayerUsage playerStatCollector, long startTime) {
         try {
-            this.serverUrl = new URL("http://snoop.minecraft.net/" + side + "?version=" + 2);
+            this.serverUrl = URI.create("https://snoop.minecraft.net/" + side + "?version=" + 2).toURL();
         } catch (MalformedURLException var6) {
             throw new IllegalArgumentException();
         }

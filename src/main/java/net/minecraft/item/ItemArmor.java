@@ -33,7 +33,7 @@ public class ItemArmor extends Item {
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(i, j, k, i + 1, j + 1, k + 1);
             List<EntityLivingBase> list = source.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, Predicates.and(EntitySelectors.NOT_SPECTATING, new EntitySelectors.ArmoredMob(stack)));
 
-            if (list.size() > 0) {
+            if (!list.isEmpty()) {
                 EntityLivingBase entitylivingbase = list.get(0);
                 int l = entitylivingbase instanceof EntityPlayer ? 1 : 0;
                 int i1 = EntityLiving.getArmorPosition(stack);
@@ -41,15 +41,12 @@ public class ItemArmor extends Item {
                 itemstack.stackSize = 1;
                 entitylivingbase.setCurrentItemOrArmor(i1 - l, itemstack);
 
-                if (entitylivingbase instanceof EntityLiving) {
+                if (entitylivingbase instanceof EntityLiving)
                     ((EntityLiving) entitylivingbase).setEquipmentDropChance(i1, 2.0F);
-                }
 
                 --stack.stackSize;
                 return stack;
-            } else {
-                return super.dispenseStack(source, stack);
-            }
+            } else return super.dispenseStack(source, stack);
         }
     };
 
@@ -86,14 +83,11 @@ public class ItemArmor extends Item {
     }
 
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
-        if (renderPass > 0) {
-            return 16777215;
-        } else {
+        if (renderPass > 0) return 16777215;
+        else {
             int i = this.getColor(stack);
 
-            if (i < 0) {
-                i = 16777215;
-            }
+            if (i < 0) i = 16777215;
 
             return i;
         }
@@ -124,17 +118,15 @@ public class ItemArmor extends Item {
      * Return the color for the specified armor ItemStack.
      */
     public int getColor(ItemStack stack) {
-        if (this.material != ItemArmor.ArmorMaterial.LEATHER) {
-            return -1;
-        } else {
+        if (this.material != ItemArmor.ArmorMaterial.LEATHER) return -1;
+        else {
             NBTTagCompound nbttagcompound = stack.getTagCompound();
 
             if (nbttagcompound != null) {
                 NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
 
-                if (nbttagcompound1 != null && nbttagcompound1.hasKey("color", 3)) {
+                if (nbttagcompound1 != null && nbttagcompound1.hasKey("color", 3))
                     return nbttagcompound1.getInteger("color");
-                }
             }
 
             return 10511680;
@@ -151,9 +143,7 @@ public class ItemArmor extends Item {
             if (nbttagcompound != null) {
                 NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
 
-                if (nbttagcompound1.hasKey("color")) {
-                    nbttagcompound1.removeTag("color");
-                }
+                if (nbttagcompound1.hasKey("color")) nbttagcompound1.removeTag("color");
             }
         }
     }
@@ -162,9 +152,9 @@ public class ItemArmor extends Item {
      * Sets the color of the specified armor ItemStack
      */
     public void setColor(ItemStack stack, int color) {
-        if (this.material != ItemArmor.ArmorMaterial.LEATHER) {
+        if (this.material != ItemArmor.ArmorMaterial.LEATHER)
             throw new UnsupportedOperationException("Can't dye non-leather!");
-        } else {
+        else {
             NBTTagCompound nbttagcompound = stack.getTagCompound();
 
             if (nbttagcompound == null) {
@@ -174,9 +164,7 @@ public class ItemArmor extends Item {
 
             NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
 
-            if (!nbttagcompound.hasKey("display", 10)) {
-                nbttagcompound.setTag("display", nbttagcompound1);
-            }
+            if (!nbttagcompound.hasKey("display", 10)) nbttagcompound.setTag("display", nbttagcompound1);
 
             nbttagcompound1.setInteger("color", color);
         }

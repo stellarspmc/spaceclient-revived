@@ -29,6 +29,9 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
     private long reloadCapeTimeMs = 0L;
     private boolean elytraOfCape = false;
     private String nameClear = null;
+    public float rotateElytraX;
+    public float rotateElytraY;
+    public float rotateElytraZ;
 
     public AbstractClientPlayer(World worldIn, GameProfile playerProfile) {
         super(worldIn, playerProfile);
