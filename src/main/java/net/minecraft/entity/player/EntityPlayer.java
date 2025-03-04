@@ -150,7 +150,7 @@ public abstract class EntityPlayer extends EntityLivingBase implements PlayerSet
     private boolean hasReducedDebug = false;
     private CustomizableModelPart headLayer;
     private CustomizableModelPart[] skinLayer;
-    private StickSimulation stickSimulation = new StickSimulation();
+    private final StickSimulation stickSimulation = new StickSimulation();
 
     public EntityPlayer(World worldIn, GameProfile gameProfileIn) {
         super(worldIn);
@@ -561,10 +561,6 @@ public abstract class EntityPlayer extends EntityLivingBase implements PlayerSet
 
         if (!this.worldObj.getGameRules().getBoolean("keepInventory")) this.inventory.dropAllItems();
 
-        if (cause != null) {
-            this.motionX = -MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * (float) Math.PI / 180.0F) * 0.1F;
-            this.motionZ = -MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * (float) Math.PI / 180.0F) * 0.1F;
-        } else this.motionX = this.motionZ = 0.0D;
         this.motionX = -MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * (float) Math.PI / 180.0F) * 0.1F;
         this.motionZ = -MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * (float) Math.PI / 180.0F) * 0.1F;
 
