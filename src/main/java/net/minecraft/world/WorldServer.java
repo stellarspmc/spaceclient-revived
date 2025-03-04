@@ -451,9 +451,8 @@ public class WorldServer extends World implements IThreadListener {
     /**
      * Runs through the list of updates to run and ticks them
      */
-    public boolean tickUpdates(boolean p_72955_1_) {
+    public void tickUpdates(boolean p_72955_1_) {
         if (this.worldInfo.getTerrainType() == WorldType.DEBUG_WORLD) {
-            return false;
         } else {
             int i = this.pendingTickListEntriesTreeSet.size();
 
@@ -507,7 +506,6 @@ public class WorldServer extends World implements IThreadListener {
 
                 this.theProfiler.endSection();
                 this.pendingTickListEntriesThisTick.clear();
-                return !this.pendingTickListEntriesTreeSet.isEmpty();
             }
         }
     }
@@ -604,7 +602,7 @@ public class WorldServer extends World implements IThreadListener {
     }
 
     public boolean isBlockModifiable(EntityPlayer player, BlockPos pos) {
-        return !this.mcServer.isBlockProtected(this, pos, player) && this.getWorldBorder().contains(pos);
+        return this.mcServer.BlockNotProtected() && this.getWorldBorder().contains(pos);
     }
 
     public void initialize(WorldSettings settings) {
@@ -816,7 +814,7 @@ public class WorldServer extends World implements IThreadListener {
     /**
      * returns a new explosion. Does initiation (at time of writing Explosion is not finished)
      */
-    public Explosion newExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking) {
+    public void newExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking) {
         Explosion explosion = new Explosion(this, entityIn, x, y, z, strength, isFlaming, isSmoking);
         explosion.doExplosionA();
         explosion.doExplosionB(false);
@@ -831,7 +829,6 @@ public class WorldServer extends World implements IThreadListener {
             }
         }
 
-        return explosion;
     }
 
     public void addBlockEvent(BlockPos pos, Block blockIn, int eventID, int eventParam) {

@@ -61,9 +61,8 @@ public abstract class TileEntity {
      * Adds a new two-way mapping between the class and its string name in both hashmaps.
      */
     private static void addMapping(Class<? extends TileEntity> cl, String id) {
-        if (nameToClassMap.containsKey(id)) {
-            throw new IllegalArgumentException("Duplicate id: " + id);
-        } else {
+        if (nameToClassMap.containsKey(id)) throw new IllegalArgumentException("Duplicate id: " + id);
+        else {
             nameToClassMap.put(id, cl);
             classToNameMap.put(cl, id);
         }
@@ -78,18 +77,13 @@ public abstract class TileEntity {
         try {
             Class<? extends TileEntity> oclass = nameToClassMap.get(nbt.getString("id"));
 
-            if (oclass != null) {
-                tileentity = oclass.newInstance();
-            }
+            if (oclass != null) tileentity = oclass.getDeclaredConstructor().newInstance();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
 
-        if (tileentity != null) {
-            tileentity.readFromNBT(nbt);
-        } else {
-            logger.warn("Skipping BlockEntity with id " + nbt.getString("id"));
-        }
+        if (tileentity != null) tileentity.readFromNBT(nbt);
+        else logger.warn("Skipping BlockEntity with id " + nbt.getString("id"));
 
         return tileentity;
     }
@@ -122,9 +116,8 @@ public abstract class TileEntity {
     public void writeToNBT(NBTTagCompound compound) {
         String s = classToNameMap.get(this.getClass());
 
-        if (s == null) {
-            throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
-        } else {
+        if (s == null) throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
+        else {
             compound.setString("id", s);
             compound.setInteger("x", this.pos.getX());
             compound.setInteger("y", this.pos.getY());
@@ -149,11 +142,10 @@ public abstract class TileEntity {
         if (this.worldObj != null) {
             IBlockState iblockstate = this.worldObj.getBlockState(this.pos);
             this.blockMetadata = iblockstate.getBlock().getMetaFromState(iblockstate);
-            this.worldObj.markChunkDirty(this.pos, this);
+            this.worldObj.markChunkDirty(this.pos);
 
-            if (this.getBlockType() != Blocks.air) {
+            if (this.getBlockType() != Blocks.air)
                 this.worldObj.updateComparatorOutputLevel(this.pos, this.getBlockType());
-            }
         }
     }
 
@@ -183,9 +175,7 @@ public abstract class TileEntity {
      * Gets the block type at the location of this entity (client-only).
      */
     public Block getBlockType() {
-        if (this.blockType == null) {
-            this.blockType = this.worldObj.getBlockState(this.pos).getBlock();
-        }
+        if (this.blockType == null) this.blockType = this.worldObj.getBlockState(this.pos).getBlock();
 
         return this.blockType;
     }
@@ -250,9 +240,8 @@ public abstract class TileEntity {
                     IBlockState iblockstate = TileEntity.this.worldObj.getBlockState(TileEntity.this.pos);
                     int i = iblockstate.getBlock().getMetaFromState(iblockstate);
 
-                    if (i < 0) {
-                        return "Unknown? (Got " + i + ")";
-                    } else {
+                    if (i < 0) return "Unknown? (Got " + i + ")";
+                    else {
                         String s = String.format("%4s", Integer.toBinaryString(i)).replace(" ", "0");
                         return String.format("%1$d / 0x%1$X / 0b%2$s", Integer.valueOf(i), s);
                     }
