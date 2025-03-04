@@ -1,7 +1,6 @@
 package net.minecraft.world.storage;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.MinecraftException;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.storage.IChunkLoader;
 
@@ -18,7 +17,7 @@ public class SaveHandlerMP implements ISaveHandler {
     /**
      * Checks the session lock to prevent save collisions
      */
-    public void checkSessionLock() throws MinecraftException {
+    public void checkSessionLock() {
     }
 
     /**

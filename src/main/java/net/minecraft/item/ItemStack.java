@@ -5,9 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import fun.spmc.ench.EnchantmentTooltips;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentDurability;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -34,6 +32,7 @@ import java.util.Random;
 
 public final class ItemStack {
     public static final DecimalFormat DECIMALFORMAT = new DecimalFormat("#.###");
+    public static final ItemStack EMPTY = new ItemStack((Item)null);
 
     /**
      * Size of the stack.

@@ -66,14 +66,14 @@ public class CommandGive extends CommandBase {
             if (flag && itemstack.stackSize <= 0) {
                 itemstack.stackSize = 1;
                 sender.setCommandStat(CommandResultStats.Type.AFFECTED_ITEMS, i);
-                EntityItem entityitem1 = entityplayer.dropPlayerItemWithRandomChoice(itemstack, false);
+                EntityItem entityitem1 = entityplayer.dropPlayerItemWithRandomChoice(itemstack);
 
                 if (entityitem1 != null) {
                     entityitem1.func_174870_v();
                 }
             } else {
                 sender.setCommandStat(CommandResultStats.Type.AFFECTED_ITEMS, i - itemstack.stackSize);
-                EntityItem entityitem = entityplayer.dropPlayerItemWithRandomChoice(itemstack, false);
+                EntityItem entityitem = entityplayer.dropPlayerItemWithRandomChoice(itemstack);
 
                 if (entityitem != null) {
                     entityitem.setNoPickupDelay();

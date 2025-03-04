@@ -424,7 +424,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                     return;
                 } else {
                     if (packetIn.getStatus() == C07PacketPlayerDigging.Action.START_DESTROY_BLOCK) {
-                        if (!this.serverController.isBlockProtected(worldserver, blockpos, this.playerEntity) && worldserver.getWorldBorder().contains(blockpos)) {
+                        if (this.serverController.BlockNotProtected() && worldserver.getWorldBorder().contains(blockpos)) {
                             this.playerEntity.theItemInWorldManager.onBlockClicked(blockpos, packetIn.getFacing());
                         } else {
                             this.playerEntity.playerNetServerHandler.sendPacket(new S23PacketBlockChange(worldserver, blockpos));
@@ -468,7 +468,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
             this.playerEntity.theItemInWorldManager.tryUseItem(this.playerEntity, worldserver, itemstack);
         } else if (blockpos.getY() < this.serverController.getBuildLimit() - 1 || enumfacing != EnumFacing.UP && blockpos.getY() < this.serverController.getBuildLimit()) {
-            if (this.hasMoved && this.playerEntity.getDistanceSq((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D) < 64.0D && !this.serverController.isBlockProtected(worldserver, blockpos, this.playerEntity) && worldserver.getWorldBorder().contains(blockpos)) {
+            if (this.hasMoved && this.playerEntity.getDistanceSq((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D) < 64.0D && this.serverController.BlockNotProtected() && worldserver.getWorldBorder().contains(blockpos)) {
                 this.playerEntity.theItemInWorldManager.activateBlockOrUseItem(this.playerEntity, worldserver, itemstack, blockpos, enumfacing, packetIn.getPlacedBlockOffsetX(), packetIn.getPlacedBlockOffsetY(), packetIn.getPlacedBlockOffsetZ());
             }
 
@@ -898,7 +898,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                 this.playerEntity.inventoryContainer.setCanCraft(this.playerEntity, true);
             } else if (flag && flag2 && flag3 && this.itemDropThreshold < 200) {
                 this.itemDropThreshold += 20;
-                EntityItem entityitem = this.playerEntity.dropPlayerItemWithRandomChoice(itemstack, true);
+                EntityItem entityitem = this.playerEntity.dropPlayerItemWithRandomChoice(itemstack);
 
                 if (entityitem != null) {
                     entityitem.setAgeToCreativeDespawnTime();

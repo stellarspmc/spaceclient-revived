@@ -278,7 +278,7 @@ public class ContainerEnchantment extends Container {
                 ItemStack itemstack = this.tableInventory.removeStackFromSlot(i);
 
                 if (itemstack != null) {
-                    playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
+                    playerIn.dropPlayerItemWithRandomChoice(itemstack);
                 }
             }
         }

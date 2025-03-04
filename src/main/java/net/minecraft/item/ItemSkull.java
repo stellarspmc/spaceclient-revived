@@ -146,16 +146,13 @@ public class ItemSkull extends Item {
     /**
      * Called when an ItemStack with NBT data is read to potentially that ItemStack's NBT data
      */
-    public boolean updateItemStackNBT(NBTTagCompound nbt) {
+    public void updateItemStackNBT(NBTTagCompound nbt) {
         super.updateItemStackNBT(nbt);
 
         if (nbt.hasKey("SkullOwner", 8) && nbt.getString("SkullOwner").length() > 0) {
             GameProfile gameprofile = new GameProfile(null, nbt.getString("SkullOwner"));
             gameprofile = TileEntitySkull.updateGameprofile(gameprofile);
             nbt.setTag("SkullOwner", NBTUtil.writeGameProfile(new NBTTagCompound(), gameprofile));
-            return true;
-        } else {
-            return false;
         }
     }
 }

@@ -128,7 +128,7 @@ public class SlotCrafting extends Slot {
                 if (this.craftMatrix.getStackInSlot(i) == null) {
                     this.craftMatrix.setInventorySlotContents(i, itemstack1);
                 } else if (!this.thePlayer.inventory.addItemStackToInventory(itemstack1)) {
-                    this.thePlayer.dropPlayerItemWithRandomChoice(itemstack1, false);
+                    this.thePlayer.dropPlayerItemWithRandomChoice(itemstack1);
                 }
             }
         }

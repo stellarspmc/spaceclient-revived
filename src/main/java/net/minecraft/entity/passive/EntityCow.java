@@ -104,7 +104,7 @@ public class EntityCow extends EntityAnimal {
             if (itemstack.stackSize-- == 1) {
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.milk_bucket));
             } else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.milk_bucket))) {
-                player.dropPlayerItemWithRandomChoice(new ItemStack(Items.milk_bucket, 1, 0), false);
+                player.dropPlayerItemWithRandomChoice(new ItemStack(Items.milk_bucket, 1, 0));
             }
 
             return true;

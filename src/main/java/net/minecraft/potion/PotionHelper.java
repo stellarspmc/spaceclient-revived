@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 public class PotionHelper {
-    public static final String unusedString = null;
     public static final String sugarEffect = "-0+1-2-3&4-4+13";
     public static final String ghastTearEffect = "+0-1-2-3&4-4+13";
     public static final String spiderEyeEffect = "-0-1+2-3&4-4+13";
@@ -35,28 +34,28 @@ public class PotionHelper {
     private static final String[] potionPrefixes = new String[]{"potion.prefix.mundane", "potion.prefix.uninteresting", "potion.prefix.bland", "potion.prefix.clear", "potion.prefix.milky", "potion.prefix.diffuse", "potion.prefix.artless", "potion.prefix.thin", "potion.prefix.awkward", "potion.prefix.flat", "potion.prefix.bulky", "potion.prefix.bungling", "potion.prefix.buttered", "potion.prefix.smooth", "potion.prefix.suave", "potion.prefix.debonair", "potion.prefix.thick", "potion.prefix.elegant", "potion.prefix.fancy", "potion.prefix.charming", "potion.prefix.dashing", "potion.prefix.refined", "potion.prefix.cordial", "potion.prefix.sparkling", "potion.prefix.potent", "potion.prefix.foul", "potion.prefix.odorless", "potion.prefix.rank", "potion.prefix.harsh", "potion.prefix.acrid", "potion.prefix.gross", "potion.prefix.stinky"};
 
     static {
-        potionRequirements.put(Integer.valueOf(Potion.regeneration.getId()), "0 & !1 & !2 & !3 & 0+6");
-        potionRequirements.put(Integer.valueOf(Potion.moveSpeed.getId()), "!0 & 1 & !2 & !3 & 1+6");
-        potionRequirements.put(Integer.valueOf(Potion.fireResistance.getId()), "0 & 1 & !2 & !3 & 0+6");
-        potionRequirements.put(Integer.valueOf(Potion.heal.getId()), "0 & !1 & 2 & !3");
-        potionRequirements.put(Integer.valueOf(Potion.poison.getId()), "!0 & !1 & 2 & !3 & 2+6");
-        potionRequirements.put(Integer.valueOf(Potion.weakness.getId()), "!0 & !1 & !2 & 3 & 3+6");
-        potionRequirements.put(Integer.valueOf(Potion.harm.getId()), "!0 & !1 & 2 & 3");
-        potionRequirements.put(Integer.valueOf(Potion.moveSlowdown.getId()), "!0 & 1 & !2 & 3 & 3+6");
-        potionRequirements.put(Integer.valueOf(Potion.damageBoost.getId()), "0 & !1 & !2 & 3 & 3+6");
-        potionRequirements.put(Integer.valueOf(Potion.nightVision.getId()), "!0 & 1 & 2 & !3 & 2+6");
-        potionRequirements.put(Integer.valueOf(Potion.invisibility.getId()), "!0 & 1 & 2 & 3 & 2+6");
-        potionRequirements.put(Integer.valueOf(Potion.waterBreathing.getId()), "0 & !1 & 2 & 3 & 2+6");
-        potionRequirements.put(Integer.valueOf(Potion.jump.getId()), "0 & 1 & !2 & 3 & 3+6");
-        potionAmplifiers.put(Integer.valueOf(Potion.moveSpeed.getId()), "5");
-        potionAmplifiers.put(Integer.valueOf(Potion.digSpeed.getId()), "5");
-        potionAmplifiers.put(Integer.valueOf(Potion.damageBoost.getId()), "5");
-        potionAmplifiers.put(Integer.valueOf(Potion.regeneration.getId()), "5");
-        potionAmplifiers.put(Integer.valueOf(Potion.harm.getId()), "5");
-        potionAmplifiers.put(Integer.valueOf(Potion.heal.getId()), "5");
-        potionAmplifiers.put(Integer.valueOf(Potion.resistance.getId()), "5");
-        potionAmplifiers.put(Integer.valueOf(Potion.poison.getId()), "5");
-        potionAmplifiers.put(Integer.valueOf(Potion.jump.getId()), "5");
+        potionRequirements.put(Potion.regeneration.getId(), "0 & !1 & !2 & !3 & 0+6");
+        potionRequirements.put(Potion.moveSpeed.getId(), "!0 & 1 & !2 & !3 & 1+6");
+        potionRequirements.put(Potion.fireResistance.getId(), "0 & 1 & !2 & !3 & 0+6");
+        potionRequirements.put(Potion.heal.getId(), "0 & !1 & 2 & !3");
+        potionRequirements.put(Potion.poison.getId(), "!0 & !1 & 2 & !3 & 2+6");
+        potionRequirements.put(Potion.weakness.getId(), "!0 & !1 & !2 & 3 & 3+6");
+        potionRequirements.put(Potion.harm.getId(), "!0 & !1 & 2 & 3");
+        potionRequirements.put(Potion.moveSlowdown.getId(), "!0 & 1 & !2 & 3 & 3+6");
+        potionRequirements.put(Potion.damageBoost.getId(), "0 & !1 & !2 & 3 & 3+6");
+        potionRequirements.put(Potion.nightVision.getId(), "!0 & 1 & 2 & !3 & 2+6");
+        potionRequirements.put(Potion.invisibility.getId(), "!0 & 1 & 2 & 3 & 2+6");
+        potionRequirements.put(Potion.waterBreathing.getId(), "0 & !1 & 2 & 3 & 2+6");
+        potionRequirements.put(Potion.jump.getId(), "0 & 1 & !2 & 3 & 3+6");
+        potionAmplifiers.put(Potion.moveSpeed.getId(), "5");
+        potionAmplifiers.put(Potion.digSpeed.getId(), "5");
+        potionAmplifiers.put(Potion.damageBoost.getId(), "5");
+        potionAmplifiers.put(Potion.regeneration.getId(), "5");
+        potionAmplifiers.put(Potion.harm.getId(), "5");
+        potionAmplifiers.put(Potion.heal.getId(), "5");
+        potionAmplifiers.put(Potion.resistance.getId(), "5");
+        potionAmplifiers.put(Potion.poison.getId(), "5");
+        potionAmplifiers.put(Potion.jump.getId(), "5");
     }
 
     /**
@@ -110,7 +109,7 @@ public class PotionHelper {
                     for (int k = 0; k <= potioneffect.getAmplifier(); ++k) {
                         f += (float) (j >> 16 & 255) / 255.0F;
                         f1 += (float) (j >> 8 & 255) / 255.0F;
-                        f2 += (float) (j >> 0 & 255) / 255.0F;
+                        f2 += (float) (j & 255) / 255.0F;
                         ++f3;
                     }
                 }
@@ -150,14 +149,14 @@ public class PotionHelper {
 
         if (!bypassCache) {
             if (DATAVALUE_COLORS.containsKey(integer)) {
-                return DATAVALUE_COLORS.get(integer).intValue();
+                return DATAVALUE_COLORS.get(integer);
             } else {
-                int i = calcPotionLiquidColor(getPotionEffects(integer.intValue(), false));
-                DATAVALUE_COLORS.put(integer, Integer.valueOf(i));
+                int i = calcPotionLiquidColor(getPotionEffects(integer, false));
+                DATAVALUE_COLORS.put(integer, i);
                 return i;
             }
         } else {
-            return calcPotionLiquidColor(getPotionEffects(integer.intValue(), true));
+            return calcPotionLiquidColor(getPotionEffects(integer, true));
         }
     }
 
@@ -221,7 +220,7 @@ public class PotionHelper {
                     return l1;
                 } else {
                     int j2 = parsePotionEffects(p_77912_0_, i + 1, p_77912_2_, p_77912_3_);
-                    return j2 > 0 ? j2 : 0;
+                    return Math.max(j2, 0);
                 }
             } else {
                 int j = p_77912_0_.indexOf(38, p_77912_1_);
@@ -233,7 +232,7 @@ public class PotionHelper {
                         return 0;
                     } else {
                         int k2 = parsePotionEffects(p_77912_0_, j + 1, p_77912_2_, p_77912_3_);
-                        return k2 <= 0 ? 0 : (i2 > k2 ? i2 : k2);
+                        return k2 <= 0 ? 0 : (Math.max(i2, k2));
                     }
                 } else {
                     boolean flag = false;
@@ -263,7 +262,6 @@ public class PotionHelper {
                         } else if (c0 == 33) {
                             if (flag2) {
                                 j1 += getPotionEffect(flag3, flag1, flag4, k, l, i1, p_77912_3_);
-                                flag3 = false;
                                 flag4 = false;
                                 flag = false;
                                 flag1 = false;
@@ -278,7 +276,6 @@ public class PotionHelper {
                             if (flag2) {
                                 j1 += getPotionEffect(flag3, flag1, flag4, k, l, i1, p_77912_3_);
                                 flag3 = false;
-                                flag4 = false;
                                 flag = false;
                                 flag1 = false;
                                 flag2 = false;
@@ -310,14 +307,13 @@ public class PotionHelper {
                                 flag2 = false;
                                 i1 = 0;
                                 l = 0;
-                                k = -1;
                             }
 
                             if (c0 == 61) {
                                 k = 0;
                             } else if (c0 == 60) {
                                 k = 2;
-                            } else if (c0 == 62) {
+                            } else {
                                 k = 1;
                             }
                         }
@@ -340,14 +336,14 @@ public class PotionHelper {
 
         for (Potion potion : Potion.potionTypes) {
             if (potion != null && (!potion.isUsable() || p_77917_1_)) {
-                String s = potionRequirements.get(Integer.valueOf(potion.getId()));
+                String s = potionRequirements.get(potion.getId());
 
                 if (s != null) {
                     int i = parsePotionEffects(s, 0, s.length(), p_77917_0_);
 
                     if (i > 0) {
                         int j = 0;
-                        String s1 = potionAmplifiers.get(Integer.valueOf(potion.getId()));
+                        String s1 = potionAmplifiers.get(potion.getId());
 
                         if (s1 != null) {
                             j = parsePotionEffects(s1, 0, s1.length(), p_77917_0_);
@@ -434,7 +430,6 @@ public class PotionHelper {
                 if (flag) {
                     p_77913_0_ = brewBitOperations(p_77913_0_, k, flag2, flag1, flag3);
                     flag3 = false;
-                    flag1 = false;
                     flag2 = false;
                     flag = false;
                     k = 0;
@@ -446,7 +441,6 @@ public class PotionHelper {
                     p_77913_0_ = brewBitOperations(p_77913_0_, k, flag2, flag1, flag3);
                     flag3 = false;
                     flag1 = false;
-                    flag2 = false;
                     flag = false;
                     k = 0;
                 }
@@ -464,7 +458,6 @@ public class PotionHelper {
             } else if (c0 == 38) {
                 if (flag) {
                     p_77913_0_ = brewBitOperations(p_77913_0_, k, flag2, flag1, flag3);
-                    flag3 = false;
                     flag1 = false;
                     flag2 = false;
                     flag = false;

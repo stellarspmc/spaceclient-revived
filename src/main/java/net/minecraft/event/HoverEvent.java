@@ -30,21 +30,14 @@ public class HoverEvent {
     }
 
     public boolean equals(Object p_equals_1_) {
-        if (this == p_equals_1_) {
-            return true;
-        } else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass()) {
+        if (this == p_equals_1_) return true;
+        else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass()) {
             HoverEvent hoverevent = (HoverEvent) p_equals_1_;
 
-            if (this.action != hoverevent.action) {
-                return false;
-            } else {
-                if (this.value != null) {
-                    return this.value.equals(hoverevent.value);
-                } else return hoverevent.value == null;
-            }
-        } else {
-            return false;
-        }
+            if (this.action != hoverevent.action) return false;
+            else if (this.value != null) return this.value.equals(hoverevent.value);
+            else return hoverevent.value == null;
+        } else return false;
     }
 
     public String toString() {
@@ -66,9 +59,8 @@ public class HoverEvent {
         private static final Map<String, HoverEvent.Action> nameMapping = Maps.newHashMap();
 
         static {
-            for (HoverEvent.Action hoverevent$action : values()) {
+            for (HoverEvent.Action hoverevent$action : values())
                 nameMapping.put(hoverevent$action.getCanonicalName(), hoverevent$action);
-            }
         }
 
         private final boolean allowedInChat;

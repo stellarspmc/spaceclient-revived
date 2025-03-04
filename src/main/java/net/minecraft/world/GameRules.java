@@ -24,6 +24,15 @@ public class GameRules {
         this.addGameRule("randomTickSpeed", "3", GameRules.ValueType.NUMERICAL_VALUE);
         this.addGameRule("sendCommandFeedback", "true", GameRules.ValueType.BOOLEAN_VALUE);
         this.addGameRule("reducedDebugInfo", "false", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("spectatorsGenerateChunks", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("spawnRadius", "10", GameRules.ValueType.NUMERICAL_VALUE);
+        this.addGameRule("disableElytraMovementCheck", "false", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("maxEntityCramming", "24", GameRules.ValueType.NUMERICAL_VALUE);
+        this.addGameRule("doWeatherCycle", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("doLimitedCrafting", "false", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("maxCommandChainLength", "65536", GameRules.ValueType.NUMERICAL_VALUE);
+        this.addGameRule("announceAdvancements", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("gameLoopFunction", "-", GameRules.ValueType.FUNCTION);
     }
 
     public void addGameRule(String key, String value, GameRules.ValueType type) {
@@ -108,7 +117,8 @@ public class GameRules {
     public enum ValueType {
         ANY_VALUE,
         BOOLEAN_VALUE,
-        NUMERICAL_VALUE
+        NUMERICAL_VALUE,
+        FUNCTION;
     }
 
     static class Value {

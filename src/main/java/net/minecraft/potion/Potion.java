@@ -24,7 +24,6 @@ public class Potion {
      */
     public static final Potion[] potionTypes = new Potion[32];
     private static final Map<ResourceLocation, Potion> field_180150_I = Maps.newHashMap();
-    public static final Potion field_180151_b = null;
     public static final Potion moveSpeed = (new Potion(1, new ResourceLocation("speed"), false, 8171462)).setPotionName("potion.moveSpeed").setIconIndex(0, 0).registerPotionAttributeModifier(SharedMonsterAttributes.movementSpeed, "91AEAA56-376B-4498-935B-2F7F68070635", 0.20000000298023224D, 2);
     public static final Potion moveSlowdown = (new Potion(2, new ResourceLocation("slowness"), true, 5926017)).setPotionName("potion.moveSlowdown").setIconIndex(1, 0).registerPotionAttributeModifier(SharedMonsterAttributes.movementSpeed, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.15000000596046448D, 2);
     public static final Potion digSpeed = (new Potion(3, new ResourceLocation("haste"), false, 14270531)).setPotionName("potion.digSpeed").setIconIndex(2, 0).setEffectiveness(1.5D);
@@ -100,15 +99,6 @@ public class Potion {
      * The saturation Potion object.
      */
     public static final Potion saturation = (new PotionHealth(23, new ResourceLocation("saturation"), false, 16262179)).setPotionName("potion.saturation");
-    public static final Potion field_180153_z = null;
-    public static final Potion field_180147_A = null;
-    public static final Potion field_180148_B = null;
-    public static final Potion field_180149_C = null;
-    public static final Potion field_180143_D = null;
-    public static final Potion field_180144_E = null;
-    public static final Potion field_180145_F = null;
-    public static final Potion field_180146_G = null;
-
     /**
      * The Id of a Potion object.
      */
@@ -231,13 +221,13 @@ public class Potion {
     public boolean isReady(int p_76397_1_, int p_76397_2_) {
         if (this.id == regeneration.id) {
             int k = 50 >> p_76397_2_;
-            return k <= 0 || p_76397_1_ % k == 0;
+            return k == 0 || p_76397_1_ % k == 0;
         } else if (this.id == poison.id) {
             int j = 25 >> p_76397_2_;
-            return j <= 0 || p_76397_1_ % j == 0;
+            return j == 0 || p_76397_1_ % j == 0;
         } else if (this.id == wither.id) {
             int i = 40 >> p_76397_2_;
-            return i <= 0 || p_76397_1_ % i == 0;
+            return i == 0 || p_76397_1_ % i == 0;
         } else {
             return this.id == hunger.id;
         }

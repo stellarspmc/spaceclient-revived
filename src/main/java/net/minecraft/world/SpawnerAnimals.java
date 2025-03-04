@@ -24,7 +24,7 @@ import java.util.*;
 public final class SpawnerAnimals {
     private static final int MOB_COUNT_DIV = (int) Math.pow(17.0D, 2.0D);
     private final Set<ChunkCoordIntPair> eligibleChunksForSpawning = Sets.newHashSet();
-    private final Map<Class, EntityLiving> mapSampleEntitiesByClass = new HashMap();
+    private final Map<Class, EntityLiving> mapSampleEntitiesByClass = new HashMap<>();
     private int lastPlayerChunkX = Integer.MAX_VALUE;
     private int lastPlayerChunkZ = Integer.MAX_VALUE;
     private int countChunkPos;
@@ -100,14 +100,14 @@ public final class SpawnerAnimals {
                             EntityLiving entityliving;
 
                             try {
-                                entityliving = biomegenbase$spawnlistentry.entityClass.getConstructor(new Class[]{World.class}).newInstance(new Object[]{worldIn});
+                                entityliving = biomegenbase$spawnlistentry.entityClass.getConstructor(new Class[]{World.class}).newInstance(worldIn);
                             } catch (Exception exception1) {
                                 exception1.printStackTrace();
                                 continue;
                             }
 
                             if (Reflector.ForgeEventFactory_canEntitySpawn.exists()) {
-                                Object object = Reflector.call(Reflector.ForgeEventFactory_canEntitySpawn, entityliving, worldIn, Float.valueOf((float) j + 0.5F), Integer.valueOf(blockpos.getY()), Float.valueOf((float) k + 0.5F));
+                                Object object = Reflector.call(Reflector.ForgeEventFactory_canEntitySpawn, entityliving, worldIn, (float) j + 0.5F, blockpos.getY(), (float) k + 0.5F);
 
                                 if (object == ReflectorForge.EVENT_RESULT_DENY) {
                                     continue;
@@ -135,17 +135,15 @@ public final class SpawnerAnimals {
      * adds all chunks within the spawn radius of the players to eligibleChunksForSpawning. pars: the world,
      * hostileCreatures, passiveCreatures. returns number of eligible chunks.
      */
-    public int findChunksForSpawning(WorldServer worldServerIn, boolean spawnHostileMobs, boolean spawnPeacefulMobs, boolean p_77192_4_) {
-        if (!spawnHostileMobs && !spawnPeacefulMobs) {
-            return 0;
-        } else {
+    public void findChunksForSpawning(WorldServer worldServerIn, boolean spawnHostileMobs, boolean spawnPeacefulMobs, boolean p_77192_4_) {
+        if (spawnHostileMobs || spawnPeacefulMobs) {
             boolean flag = true;
             EntityPlayer entityplayer = null;
 
             if (worldServerIn.playerEntities.size() == 1) {
-                entityplayer = worldServerIn.playerEntities.get(0);
+                entityplayer = worldServerIn.playerEntities.getFirst();
 
-                if (this.eligibleChunksForSpawning.size() > 0 && entityplayer != null && entityplayer.chunkCoordX == this.lastPlayerChunkX && entityplayer.chunkCoordZ == this.lastPlayerChunkZ) {
+                if (!this.eligibleChunksForSpawning.isEmpty() && entityplayer != null && entityplayer.chunkCoordX == this.lastPlayerChunkX && entityplayer.chunkCoordZ == this.lastPlayerChunkZ) {
                     flag = false;
                 }
             }
@@ -185,14 +183,13 @@ public final class SpawnerAnimals {
                 }
             }
 
-            int j4 = 0;
             BlockPos blockpos2 = worldServerIn.getSpawnPoint();
             BlockPosM blockposm = new BlockPosM(0, 0, 0);
             new BlockPos.MutableBlockPos();
 
             for (EnumCreatureType enumcreaturetype : EnumCreatureType.values()) {
                 if ((!enumcreaturetype.getPeacefulCreature() || spawnPeacefulMobs) && (enumcreaturetype.getPeacefulCreature() || spawnHostileMobs) && (!enumcreaturetype.getAnimal() || p_77192_4_)) {
-                    int k4 = Reflector.ForgeWorld_countEntities.exists() ? Reflector.callInt(worldServerIn, Reflector.ForgeWorld_countEntities, enumcreaturetype, Boolean.valueOf(true)) : worldServerIn.countEntities(enumcreaturetype.getCreatureClass());
+                    int k4 = Reflector.ForgeWorld_countEntities.exists() ? Reflector.callInt(worldServerIn, Reflector.ForgeWorld_countEntities, enumcreaturetype, Boolean.TRUE) : worldServerIn.countEntities(enumcreaturetype.getCreatureClass());
                     int l4 = enumcreaturetype.getMaxNumberOfCreature() * this.countChunkPos / MOB_COUNT_DIV;
 
                     if (k4 <= l4) {
@@ -218,7 +215,6 @@ public final class SpawnerAnimals {
 
                                 for (int k2 = 0; k2 < 3; ++k2) {
                                     int l2 = k1;
-                                    int i3 = l1;
                                     int j3 = i2;
                                     int k3 = 6;
                                     BiomeGenBase.SpawnListEntry biomegenbase$spawnlistentry = null;
@@ -226,13 +222,12 @@ public final class SpawnerAnimals {
 
                                     for (int l3 = 0; l3 < 4; ++l3) {
                                         l2 += worldServerIn.rand.nextInt(k3) - worldServerIn.rand.nextInt(k3);
-                                        i3 += worldServerIn.rand.nextInt(1) - worldServerIn.rand.nextInt(1);
                                         j3 += worldServerIn.rand.nextInt(k3) - worldServerIn.rand.nextInt(k3);
-                                        BlockPos blockpos1 = new BlockPos(l2, i3, j3);
+                                        BlockPos blockpos1 = new BlockPos(l2, l1, j3);
                                         float f = (float) l2 + 0.5F;
                                         float f1 = (float) j3 + 0.5F;
 
-                                        if (!worldServerIn.isAnyPlayerWithinRangeAt(f, i3, f1, 24.0D) && blockpos2.distanceSq(f, i3, f1) >= 576.0D) {
+                                        if (!worldServerIn.isAnyPlayerWithinRangeAt(f, l1, f1, 24.0D) && blockpos2.distanceSq(f, l1, f1) >= 576.0D) {
                                             if (biomegenbase$spawnlistentry == null) {
                                                 biomegenbase$spawnlistentry = worldServerIn.getSpawnListEntryForTypeAt(enumcreaturetype, blockpos1);
 
@@ -248,21 +243,21 @@ public final class SpawnerAnimals {
                                                     entityliving = this.mapSampleEntitiesByClass.get(biomegenbase$spawnlistentry.entityClass);
 
                                                     if (entityliving == null) {
-                                                        entityliving = biomegenbase$spawnlistentry.entityClass.getConstructor(new Class[]{World.class}).newInstance(new Object[]{worldServerIn});
+                                                        entityliving = biomegenbase$spawnlistentry.entityClass.getConstructor(new Class[]{World.class}).newInstance(worldServerIn);
                                                         this.mapSampleEntitiesByClass.put(biomegenbase$spawnlistentry.entityClass, entityliving);
                                                     }
                                                 } catch (Exception exception1) {
                                                     exception1.printStackTrace();
-                                                    return j4;
+                                                    return;
                                                 }
 
-                                                entityliving.setLocationAndAngles(f, i3, f1, worldServerIn.rand.nextFloat() * 360.0F, 0.0F);
-                                                boolean flag2 = Reflector.ForgeEventFactory_canEntitySpawn.exists() ? ReflectorForge.canEntitySpawn(entityliving, worldServerIn, f, (float) i3, f1) : entityliving.getCanSpawnHere() && entityliving.isNotColliding();
+                                                entityliving.setLocationAndAngles(f, l1, f1, worldServerIn.rand.nextFloat() * 360.0F, 0.0F);
+                                                boolean flag2 = Reflector.ForgeEventFactory_canEntitySpawn.exists() ? ReflectorForge.canEntitySpawn(entityliving, worldServerIn, f, (float) l1, f1) : entityliving.getCanSpawnHere() && entityliving.isNotColliding();
 
                                                 if (flag2) {
                                                     this.mapSampleEntitiesByClass.remove(biomegenbase$spawnlistentry.entityClass);
 
-                                                    if (!ReflectorForge.doSpecialSpawn(entityliving, worldServerIn, f, i3, f1)) {
+                                                    if (!ReflectorForge.doSpecialSpawn(entityliving, worldServerIn, f, l1, f1)) {
                                                         ientitylivingdata = entityliving.onInitialSpawn(worldServerIn.getDifficultyForLocation(new BlockPos(entityliving)), ientitylivingdata);
                                                     }
 
@@ -278,7 +273,6 @@ public final class SpawnerAnimals {
                                                     }
                                                 }
 
-                                                j4 += j2;
                                             }
                                         }
                                     }
@@ -289,7 +283,6 @@ public final class SpawnerAnimals {
                 }
             }
 
-            return j4;
         }
     }
 }

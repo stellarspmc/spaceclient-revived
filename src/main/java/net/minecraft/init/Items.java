@@ -191,6 +191,7 @@ public class Items {
     public static final Item prismarine_shard;
     public static final Item prismarine_crystals;
     public static final Item banner;
+    public static final ItemArmor elytra;
 
     static {
         if (!Bootstrap.isRegistered()) {
@@ -383,6 +384,7 @@ public class Items {
             prismarine_shard = getRegisteredItem("prismarine_shard");
             prismarine_crystals = getRegisteredItem("prismarine_crystals");
             banner = getRegisteredItem("banner");
+            elytra = (ItemArmor) getRegisteredItem("elytra");
         }
     }
 

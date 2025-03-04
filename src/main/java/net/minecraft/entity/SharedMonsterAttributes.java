@@ -23,9 +23,8 @@ public class SharedMonsterAttributes {
     public static NBTTagList writeBaseAttributeMapToNBT(BaseAttributeMap map) {
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (IAttributeInstance iattributeinstance : map.getAllAttributes()) {
+        for (IAttributeInstance iattributeinstance : map.getAllAttributes())
             nbttaglist.appendTag(writeAttributeInstanceToNBT(iattributeinstance));
-        }
 
         return nbttaglist;
     }
@@ -43,11 +42,8 @@ public class SharedMonsterAttributes {
         if (collection != null && !collection.isEmpty()) {
             NBTTagList nbttaglist = new NBTTagList();
 
-            for (AttributeModifier attributemodifier : collection) {
-                if (attributemodifier.isSaved()) {
-                    nbttaglist.appendTag(writeAttributeModifierToNBT(attributemodifier));
-                }
-            }
+            for (AttributeModifier attributemodifier : collection)
+                if (attributemodifier.isSaved()) nbttaglist.appendTag(writeAttributeModifierToNBT(attributemodifier));
 
             nbttagcompound.setTag("Modifiers", nbttaglist);
         }
@@ -73,11 +69,8 @@ public class SharedMonsterAttributes {
             NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
             IAttributeInstance iattributeinstance = map.getAttributeInstanceByName(nbttagcompound.getString("Name"));
 
-            if (iattributeinstance != null) {
-                applyModifiersToAttributeInstance(iattributeinstance, nbttagcompound);
-            } else {
-                logger.warn("Ignoring unknown attribute '" + nbttagcompound.getString("Name") + "'");
-            }
+            if (iattributeinstance != null) applyModifiersToAttributeInstance(iattributeinstance, nbttagcompound);
+            else logger.warn("Ignoring unknown attribute '{}'", nbttagcompound.getString("Name"));
         }
     }
 
@@ -92,11 +85,7 @@ public class SharedMonsterAttributes {
 
                 if (attributemodifier != null) {
                     AttributeModifier attributemodifier1 = instance.getModifier(attributemodifier.getID());
-
-                    if (attributemodifier1 != null) {
-                        instance.removeModifier(attributemodifier1);
-                    }
-
+                    if (attributemodifier1 != null) instance.removeModifier(attributemodifier1);
                     instance.applyModifier(attributemodifier);
                 }
             }
@@ -112,7 +101,7 @@ public class SharedMonsterAttributes {
         try {
             return new AttributeModifier(uuid, compound.getString("Name"), compound.getDouble("Amount"), compound.getInteger("Operation"));
         } catch (Exception exception) {
-            logger.warn("Unable to create attribute: " + exception.getMessage());
+            logger.warn("Unable to create attribute: {}", exception.getMessage());
             return null;
         }
     }

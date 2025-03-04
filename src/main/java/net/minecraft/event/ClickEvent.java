@@ -29,21 +29,14 @@ public class ClickEvent {
     }
 
     public boolean equals(Object p_equals_1_) {
-        if (this == p_equals_1_) {
-            return true;
-        } else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass()) {
+        if (this == p_equals_1_) return true;
+        else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass()) {
             ClickEvent clickevent = (ClickEvent) p_equals_1_;
 
-            if (this.action != clickevent.action) {
-                return false;
-            } else {
-                if (this.value != null) {
-                    return this.value.equals(clickevent.value);
-                } else return clickevent.value == null;
-            }
-        } else {
-            return false;
-        }
+            if (this.action != clickevent.action) return false;
+            else if (this.value != null) return this.value.equals(clickevent.value);
+            else return clickevent.value == null;
+        } else return false;
     }
 
     public String toString() {
@@ -67,9 +60,8 @@ public class ClickEvent {
         private static final Map<String, ClickEvent.Action> nameMapping = Maps.newHashMap();
 
         static {
-            for (ClickEvent.Action clickevent$action : values()) {
+            for (ClickEvent.Action clickevent$action : values())
                 nameMapping.put(clickevent$action.getCanonicalName(), clickevent$action);
-            }
         }
 
         private final boolean allowedInChat;

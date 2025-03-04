@@ -30,7 +30,7 @@ public class ItemEmptyMap extends ItemMapBase {
             return itemstack;
         } else {
             if (!playerIn.inventory.addItemStackToInventory(itemstack.copy())) {
-                playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
+                playerIn.dropPlayerItemWithRandomChoice(itemstack);
             }
 
             playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);

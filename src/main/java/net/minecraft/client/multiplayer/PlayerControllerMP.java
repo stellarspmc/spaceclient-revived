@@ -438,7 +438,7 @@ public class PlayerControllerMP {
      * Handles slot clicks sends a packet to the server.
      */
     public ItemStack windowClick(int windowId, int slotId, int mouseButtonClicked, int mode, EntityPlayer playerIn) {
-        short short1 = playerIn.openContainer.getNextTransactionID(playerIn.inventory);
+        short short1 = playerIn.openContainer.getNextTransactionID();
         ItemStack itemstack = playerIn.openContainer.slotClick(slotId, mouseButtonClicked, mode, playerIn);
         this.netClientHandler.addToSendQueue(new C0EPacketClickWindow(windowId, slotId, mouseButtonClicked, mode, itemstack, short1));
         return itemstack;

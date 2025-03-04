@@ -565,6 +565,8 @@ public abstract class EntityPlayer extends EntityLivingBase implements PlayerSet
             this.motionX = -MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * (float) Math.PI / 180.0F) * 0.1F;
             this.motionZ = -MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * (float) Math.PI / 180.0F) * 0.1F;
         } else this.motionX = this.motionZ = 0.0D;
+        this.motionX = -MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * (float) Math.PI / 180.0F) * 0.1F;
+        this.motionZ = -MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * (float) Math.PI / 180.0F) * 0.1F;
 
         this.triggerAchievement(StatList.deathsStat);
         this.func_175145_a(StatList.timeSinceDeathStat);

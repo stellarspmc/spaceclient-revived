@@ -14,7 +14,7 @@ public class StickSimulation {
     private float maxBend = 5;
 
     public void simulate() {
-        gravity = WaveyCapesBase.config.gravity;
+        gravity = 5;
         //maxBend = WaveyCapesBase.config.maxBend;
 
         float deltaTime = 50f/1000f; // fixed timescale

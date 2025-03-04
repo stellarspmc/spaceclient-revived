@@ -354,7 +354,7 @@ public class ContainerRepair extends Container {
                 ItemStack itemstack = this.inputSlots.removeStackFromSlot(i);
 
                 if (itemstack != null) {
-                    playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
+                    playerIn.dropPlayerItemWithRandomChoice(itemstack);
                 }
             }
         }

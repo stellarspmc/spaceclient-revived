@@ -3,7 +3,6 @@ package net.minecraft.server.network;
 import com.google.common.base.Charsets;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.NetworkManager;
@@ -27,6 +26,7 @@ import javax.crypto.SecretKey;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -99,11 +99,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
             this.currentLoginState = NetHandlerLoginServer.LoginState.ACCEPTED;
 
             if (this.server.getNetworkCompressionTreshold() >= 0 && !this.networkManager.isLocalChannel()) {
-                this.networkManager.sendPacket(new S03PacketEnableCompression(this.server.getNetworkCompressionTreshold()), new ChannelFutureListener() {
-                    public void operationComplete(ChannelFuture p_operationComplete_1_) throws Exception {
-                        NetHandlerLoginServer.this.networkManager.setCompressionTreshold(NetHandlerLoginServer.this.server.getNetworkCompressionTreshold());
-                    }
-                });
+                this.networkManager.sendPacket(new S03PacketEnableCompression(this.server.getNetworkCompressionTreshold()), (ChannelFutureListener) _ -> NetHandlerLoginServer.this.networkManager.setCompressionTreshold(NetHandlerLoginServer.this.server.getNetworkCompressionTreshold()));
             }
 
             this.networkManager.sendPacket(new S02PacketLoginSuccess(this.loginGameProfile));
@@ -156,7 +152,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
                     GameProfile gameprofile = NetHandlerLoginServer.this.loginGameProfile;
 
                     try {
-                        String s = (new BigInteger(CryptManager.getServerIdHash(NetHandlerLoginServer.this.serverId, NetHandlerLoginServer.this.server.getKeyPair().getPublic(), NetHandlerLoginServer.this.secretKey))).toString(16);
+                        String s = (new BigInteger(Objects.requireNonNull(CryptManager.getServerIdHash(NetHandlerLoginServer.this.serverId, NetHandlerLoginServer.this.server.getKeyPair().getPublic(), NetHandlerLoginServer.this.secretKey)))).toString(16);
                         NetHandlerLoginServer.this.loginGameProfile = NetHandlerLoginServer.this.server.getMinecraftSessionService().hasJoinedServer(new GameProfile(null, gameprofile.getName()), s);
 
                         if (NetHandlerLoginServer.this.loginGameProfile != null) {
