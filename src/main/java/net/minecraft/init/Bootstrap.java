@@ -104,9 +104,8 @@ public class Bootstrap {
                 double d2 = source.getZ() + (double) enumfacing.getFrontOffsetZ();
                 Entity entity = ItemMonsterPlacer.spawnCreature(source.getWorld(), stack.getMetadata(), d0, d1, d2);
 
-                if (entity instanceof EntityLivingBase && stack.hasDisplayName()) {
+                if (entity instanceof EntityLivingBase && stack.hasDisplayName())
                     entity.setCustomNameTag(stack.getDisplayName());
-                }
 
                 stack.splitStack(1);
                 return stack;
@@ -162,12 +161,10 @@ public class Bootstrap {
                 Material material = world.getBlockState(blockpos).getBlock().getMaterial();
                 double d3;
 
-                if (Material.water.equals(material)) {
-                    d3 = 1.0D;
-                } else {
-                    if (!Material.air.equals(material) || !Material.water.equals(world.getBlockState(blockpos.down()).getBlock().getMaterial())) {
+                if (Material.water.equals(material)) d3 = 1.0D;
+                else {
+                    if (!Material.air.equals(material) || !Material.water.equals(world.getBlockState(blockpos.down()).getBlock().getMaterial()))
                         return this.field_150842_b.dispense(source, stack);
-                    }
 
                     d3 = 0.0D;
                 }
@@ -178,9 +175,6 @@ public class Bootstrap {
                 return stack;
             }
 
-            protected void playDispenseSound(IBlockSource source) {
-                source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
-            }
         });
         IBehaviorDispenseItem ibehaviordispenseitem = new BehaviorDefaultDispenseItem() {
             private final BehaviorDefaultDispenseItem field_150841_b = new BehaviorDefaultDispenseItem();
@@ -193,9 +187,7 @@ public class Bootstrap {
                     stack.setItem(Items.bucket);
                     stack.stackSize = 1;
                     return stack;
-                } else {
-                    return this.field_150841_b.dispense(source, stack);
-                }
+                } else return this.field_150841_b.dispense(source, stack);
             }
         };
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.lava_bucket, ibehaviordispenseitem);
@@ -211,12 +203,11 @@ public class Bootstrap {
                 Material material = block.getMaterial();
                 Item item;
 
-                if (Material.water.equals(material) && block instanceof BlockLiquid && iblockstate.getValue(BlockLiquid.LEVEL).intValue() == 0) {
+                if (Material.water.equals(material) && block instanceof BlockLiquid && iblockstate.getValue(BlockLiquid.LEVEL) == 0)
                     item = Items.water_bucket;
-                } else {
-                    if (!Material.lava.equals(material) || !(block instanceof BlockLiquid) || iblockstate.getValue(BlockLiquid.LEVEL).intValue() != 0) {
+                else {
+                    if (!Material.lava.equals(material) || !(block instanceof BlockLiquid) || iblockstate.getValue(BlockLiquid.LEVEL) != 0)
                         return super.dispenseStack(source, stack);
-                    }
 
                     item = Items.lava_bucket;
                 }
@@ -226,9 +217,8 @@ public class Bootstrap {
                 if (--stack.stackSize == 0) {
                     stack.setItem(item);
                     stack.stackSize = 1;
-                } else if (((TileEntityDispenser) source.getBlockTileEntity()).addItemStack(new ItemStack(item)) < 0) {
+                } else if (((TileEntityDispenser) source.getBlockTileEntity()).addItemStack(new ItemStack(item)) < 0)
                     this.field_150840_b.dispense(source, new ItemStack(item));
-                }
 
                 return stack;
             }
@@ -243,25 +233,18 @@ public class Bootstrap {
                 if (world.isAirBlock(blockpos)) {
                     world.setBlockState(blockpos, Blocks.fire.getDefaultState());
 
-                    if (stack.attemptDamageItem(1, world.rand)) {
-                        stack.stackSize = 0;
-                    }
+                    if (stack.attemptDamageItem(1, world.rand)) stack.stackSize = 0;
                 } else if (world.getBlockState(blockpos).getBlock() == Blocks.tnt) {
-                    Blocks.tnt.onBlockDestroyedByPlayer(world, blockpos, Blocks.tnt.getDefaultState().withProperty(BlockTNT.EXPLODE, Boolean.valueOf(true)));
+                    Blocks.tnt.onBlockDestroyedByPlayer(world, blockpos, Blocks.tnt.getDefaultState().withProperty(BlockTNT.EXPLODE, Boolean.TRUE));
                     world.setBlockToAir(blockpos);
-                } else {
-                    this.field_150839_b = false;
-                }
+                } else this.field_150839_b = false;
 
                 return stack;
             }
 
             protected void playDispenseSound(IBlockSource source) {
-                if (this.field_150839_b) {
-                    source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
-                } else {
-                    source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);
-                }
+                if (this.field_150839_b) source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
+                else source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.dye, new BehaviorDefaultDispenseItem() {
@@ -273,25 +256,16 @@ public class Bootstrap {
                     BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
 
                     if (ItemDye.applyBonemeal(stack, world, blockpos)) {
-                        if (!world.isRemote) {
-                            world.playAuxSFX(2005, blockpos, 0);
-                        }
-                    } else {
-                        this.field_150838_b = false;
-                    }
+                        if (!world.isRemote) world.playAuxSFX(2005, blockpos, 0);
+                    } else this.field_150838_b = false;
 
                     return stack;
-                } else {
-                    return super.dispenseStack(source, stack);
-                }
+                } else return super.dispenseStack(source, stack);
             }
 
             protected void playDispenseSound(IBlockSource source) {
-                if (this.field_150838_b) {
-                    source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
-                } else {
-                    source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);
-                }
+                if (this.field_150838_b) source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
+                else source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Item.getItemFromBlock(Blocks.tnt), new BehaviorDefaultDispenseItem() {
@@ -326,21 +300,17 @@ public class Bootstrap {
                                 if (stack.hasTagCompound()) {
                                     NBTTagCompound nbttagcompound = stack.getTagCompound();
 
-                                    if (nbttagcompound.hasKey("SkullOwner", 10)) {
+                                    if (nbttagcompound.hasKey("SkullOwner", 10))
                                         gameprofile = NBTUtil.readGameProfileFromNBT(nbttagcompound.getCompoundTag("SkullOwner"));
-                                    } else if (nbttagcompound.hasKey("SkullOwner", 8)) {
+                                    else if (nbttagcompound.hasKey("SkullOwner", 8)) {
                                         String s = nbttagcompound.getString("SkullOwner");
 
-                                        if (!StringUtils.isNullOrEmpty(s)) {
-                                            gameprofile = new GameProfile(null, s);
-                                        }
+                                        if (!StringUtils.isNullOrEmpty(s)) gameprofile = new GameProfile(null, s);
                                     }
                                 }
 
                                 ((TileEntitySkull) tileentity).setPlayerProfile(gameprofile);
-                            } else {
-                                ((TileEntitySkull) tileentity).setType(stack.getMetadata());
-                            }
+                            } else ((TileEntitySkull) tileentity).setType(stack.getMetadata());
 
                             ((TileEntitySkull) tileentity).setSkullRotation(enumfacing.getOpposite().getHorizontalIndex() * 4);
                             Blocks.skull.checkWitherSpawn(world, blockpos, (TileEntitySkull) tileentity);
@@ -348,19 +318,14 @@ public class Bootstrap {
 
                         --stack.stackSize;
                     }
-                } else {
-                    this.field_179240_b = false;
-                }
+                } else this.field_179240_b = false;
 
                 return stack;
             }
 
             protected void playDispenseSound(IBlockSource source) {
-                if (this.field_179240_b) {
-                    source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
-                } else {
-                    source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);
-                }
+                if (this.field_179240_b) source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
+                else source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Item.getItemFromBlock(Blocks.pumpkin), new BehaviorDefaultDispenseItem() {
@@ -372,24 +337,17 @@ public class Bootstrap {
                 BlockPumpkin blockpumpkin = (BlockPumpkin) Blocks.pumpkin;
 
                 if (world.isAirBlock(blockpos) && blockpumpkin.canDispenserPlace(world, blockpos)) {
-                    if (!world.isRemote) {
-                        world.setBlockState(blockpos, blockpumpkin.getDefaultState(), 3);
-                    }
+                    if (!world.isRemote) world.setBlockState(blockpos, blockpumpkin.getDefaultState(), 3);
 
                     --stack.stackSize;
-                } else {
-                    this.field_179241_b = false;
-                }
+                } else this.field_179241_b = false;
 
                 return stack;
             }
 
             protected void playDispenseSound(IBlockSource source) {
-                if (this.field_179241_b) {
-                    source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
-                } else {
-                    source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);
-                }
+                if (this.field_179241_b) source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
+                else source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);
             }
         });
     }
@@ -401,9 +359,7 @@ public class Bootstrap {
         if (!alreadyRegistered) {
             alreadyRegistered = true;
 
-            if (LOGGER.isDebugEnabled()) {
-                redirectOutputToLog();
-            }
+            if (LOGGER.isDebugEnabled()) redirectOutputToLog();
 
             Block.registerBlocks();
             BlockFire.init();
