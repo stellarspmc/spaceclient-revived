@@ -1,6 +1,6 @@
 package fun.spmc.capes;
 
-import fun.spmc.utils.MathUtil;
+import fun.spmc.utils.math.MathUtil;
 
 import java.util.ArrayList;
 import java.util.List;

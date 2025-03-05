@@ -1,4 +1,4 @@
-package fun.spmc.utils;
+package fun.spmc.utils.math;
 
 import net.minecraft.util.Matrix4f;
 

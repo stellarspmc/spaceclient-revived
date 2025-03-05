@@ -1,4 +1,4 @@
-package fun.spmc.utils;
+package fun.spmc.utils.math;
 
 public final class Quaternion {
     public static final Quaternion ONE = new Quaternion(0.0F, 0.0F, 0.0F, 1.0F);

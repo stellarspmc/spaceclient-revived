@@ -1,6 +1,9 @@
 package fun.spmc.utils;
 
 import com.google.common.collect.Queues;
+import fun.spmc.utils.math.MathUtil;
+import fun.spmc.utils.math.Matrix3f;
+import fun.spmc.utils.math.Quaternion;
 import net.minecraft.util.Matrix4f;
 
 import java.util.Deque;

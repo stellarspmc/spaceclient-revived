@@ -1,4 +1,4 @@
-package fun.spmc.utils;
+package fun.spmc.utils.math;
 
 public class MathUtil {
 

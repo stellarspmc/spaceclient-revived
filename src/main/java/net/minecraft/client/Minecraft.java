@@ -301,11 +301,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.fileAssets = gameConfig.folderInfo.assetsDir;
         this.fileResourcepacks = gameConfig.folderInfo.resourcePacksDir;
         this.launchedVersion = gameConfig.gameInfo.version;
-        PropertyMap twitchDetails = gameConfig.userInfo.userProperties;
         this.profileProperties = gameConfig.userInfo.profileProperties;
         this.mcDefaultResourcePack = new DefaultResourcePack((new ResourceIndex(gameConfig.folderInfo.assetsDir, gameConfig.folderInfo.assetIndex)).getResourceMap());
         this.proxy = gameConfig.userInfo.proxy == null ? Proxy.NO_PROXY : gameConfig.userInfo.proxy;
-        this.sessionService = (new YggdrasilAuthenticationService(gameConfig.userInfo.proxy, UUID.randomUUID().toString())).createMinecraftSessionService();
+        this.sessionService = (new YggdrasilAuthenticationService(Objects.requireNonNull(gameConfig.userInfo.proxy), UUID.randomUUID().toString())).createMinecraftSessionService();
         this.session = gameConfig.userInfo.session;
         logger.info("Setting user: {}", this.session.getUsername());
         logger.info("(Session ID is {})", this.session.getSessionID());
@@ -715,13 +714,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                         }
 
                     if (!flag) {
-                        Iterator iterator = set.iterator();
+                        Iterator<DisplayMode> iterator = set.iterator();
                         DisplayMode displaymode3;
 
                         do {
                             if (!iterator.hasNext()) continue label53;
-
-                            displaymode3 = (DisplayMode) iterator.next();
+                            displaymode3 = iterator.next();
 
                         } while (displaymode3.getBitsPerPixel() != 32 || displaymode3.getWidth() != displaymode1.getWidth() / 2 || displaymode3.getHeight() != displaymode1.getHeight() / 2);
 

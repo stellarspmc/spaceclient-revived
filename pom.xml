@@ -235,12 +235,6 @@
             <artifactId>authlib</artifactId>
             <version>1.5.21</version>
         </dependency>
-
-        <dependency>
-            <groupId>io.github.CDAGaming</groupId>
-            <artifactId>DiscordIPC</artifactId>
-            <version>0.10.2</version>
-        </dependency>
     </dependencies>
 
 </project>

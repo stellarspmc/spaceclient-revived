@@ -2,10 +2,10 @@ package fun.spmc.capes.layer;
 
 import fun.spmc.capes.*;
 
-import fun.spmc.utils.MathUtil;
+import fun.spmc.utils.math.MathUtil;
 import fun.spmc.utils.PoseStack;
-import fun.spmc.utils.Vector3f;
-import fun.spmc.utils.Vector4f;
+import fun.spmc.utils.math.Vector3f;
+import fun.spmc.utils.math.Vector4f;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;

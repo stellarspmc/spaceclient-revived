@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-import fun.spmc.utils.Quaternion;
+import fun.spmc.utils.math.Quaternion;
 
 public class Matrix4f extends org.lwjgl.util.vector.Matrix4f {
     public Matrix4f(float[] p_i46413_1_) {

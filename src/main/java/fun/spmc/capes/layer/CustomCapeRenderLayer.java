@@ -1,7 +1,7 @@
 package fun.spmc.capes.layer;
 
 import fun.spmc.capes.*;
-import fun.spmc.utils.MathUtil;
+import fun.spmc.utils.math.MathUtil;
 
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBase;
